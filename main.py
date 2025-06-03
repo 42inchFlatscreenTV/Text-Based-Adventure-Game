@@ -1,4 +1,5 @@
 from cave import Cave
+from character import Enemy
 
 # create cave objects
 cavern = Cave("Cavern")
@@ -15,10 +16,39 @@ dungeon.link_cave(cavern, "north")
 cavern.link_cave(dungeon, "south")
 grotto.link_cave(dungeon, "east")
 
-current_cave = cavern          
-while True:		
+# create character objects
+harry = Enemy("Harry", "A smelly Wumpus")
+harry.set_conversation("Hangry…Hanggrry")
+harry.set_weakness("vegemite")
+
+dungeon.set_character(harry)
+
+current_cave = cavern
+dead = False
+while dead == False:      	
     print("\n")         
-    current_cave.get_details()         
+    current_cave.get_details()
+    inhabitant = current_cave.get_character()
+    if inhabitant is not None:
+        inhabitant.describe()
     command = input("> ")    
     current_cave = current_cave.move(command)  
-
+    if command in ["north", "south", "east", "west"]:
+            current_cave = current_cave.move(command)
+    elif command == "talk":
+        # Talk to the inhabitant - check whether there is one!
+        if inhabitant is not None:
+            inhabitant.talk()
+    elif command == "fight":
+        if inhabitant is not None and isinstance(inhabitant, Enemy):
+            # Fight with the inhabitant, if there is one
+            print("What will you fight with?")
+            fight_with = input()
+            if inhabitant.fight(fight_with) == True:
+                # What happens if you win?
+                print("Bravo,hero you won the fight!")
+                current_room.set_character(None)
+            else:
+                print("Scurry home, you lost the fight.")
+        else:
+            print("There is no one here to fight with")
