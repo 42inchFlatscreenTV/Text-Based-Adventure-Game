@@ -9,10 +9,13 @@ cavern = Cave("Cavern")
 cavern.set_description("A dank and dirty cave\n")
 
 dungeon = Cave("Dungeon")
-dungeon.set_description("A large cave with a rack\n")
+dungeon.set_description("A large cave with a torture chamber\n")
 
 grotto = Cave("Grotto")
 grotto.set_description("A small cave with ancient graffiti\n")
+
+vault = Cave("Vault")
+vault.set_description("A dark cave with a vault door\n")
 
 dungeon.link_cave(grotto, "west")
 dungeon.link_cave(cavern, "north")
@@ -25,9 +28,14 @@ lucas.set_conversation("200")
 lucas.set_weakness("studying")
 dungeon.set_character(lucas)
 
-josephine = Friend("Josephine", "A friendly bat")
-josephine.set_conversation("Gidday")
-grotto.set_character(josephine)
+mark = Enemy("Mark", "A room temperature IQ individual")
+mark.set_conversation("I'm a ranga")
+mark.set_weakness("being smart")
+grotto.set_character(mark)
+
+ben = Friend("Ben", "Dr Cruz")
+ben.set_conversation("I am a friend of Supercell")
+vault.set_character(ben)
 
 cheese = Item("Cheese", "A smelly piece of cheese")
 
@@ -56,7 +64,7 @@ while dead == False:
             fight_with = input()
             if inhabitant.fight(fight_with) == True:
                 # What happens if you win?
-                print("Bravo, hero you won the fight!")
+                print("Bravo, hero you cranked 90s on Lucas Yang!")
                 current_cave.set_character(None)
             else:
                 print("Scurry home, you lost the fight.")
