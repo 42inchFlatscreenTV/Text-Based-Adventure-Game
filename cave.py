@@ -33,6 +33,13 @@ class Cave:
     def get_weakness(self):
         return self.weakness
     
+    # getters and setters for items
+    def set_item(self, item):
+        self.item = item
+
+    def get_item(self):
+        return self.item
+    
     # describe method to print description
     def describe(self):
         print(self.description)
@@ -47,7 +54,7 @@ class Cave:
         print(self.description)
         for direction in self.linked_caves:
             cave = self.linked_caves[direction]
-            print("The " + cave.get_name() + " is " + direction)
+            print("The " + cave.get_name() + " is " + direction + ".\n")
 
     def move(self, direction):
         if direction in self.linked_caves:
