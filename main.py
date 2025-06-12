@@ -21,6 +21,7 @@ dungeon.link_cave(grotto, "west")
 dungeon.link_cave(cavern, "north")
 cavern.link_cave(dungeon, "south")
 grotto.link_cave(dungeon, "east")
+grotto.link_cave(vault, "north")
 
 # create character objects
 lucas = Enemy("Lucas Yang", "A smelly Fortnite player")
@@ -34,11 +35,11 @@ mark.set_weakness("being smart")
 grotto.set_character(mark)
 
 ben = Friend("Ben", "Dr Cruz")
-ben.set_conversation("I am a friend of Supercell")
+ben.set_conversation("I pay to win on Clash Royale")
 vault.set_character(ben)
 
-cheese = Item("Cheese", "A smelly piece of cheese")
-
+cheese = Item("Cheese")
+cheese.set_itemdescription("A smelly piece of cheese")
 cavern.set_item(cheese)
 
 current_cave = cavern
@@ -46,6 +47,11 @@ dead = False
 while dead == False:      	
     print("\n")         
     current_cave.get_details()
+    
+    item = current_cave.get_item()
+    if item is not None:
+        item.describe()
+
     inhabitant = current_cave.get_character()
     if inhabitant is not None:
         inhabitant.describe()
